@@ -21,5 +21,6 @@ export default defineConfig({
       path: 'https://github.com/umijs/dumi-template',
     },
   ],
+  // locales:[['zh-CN', '中文'],['en-US', 'English']]
   // more config: https://d.umijs.org/config
 });
