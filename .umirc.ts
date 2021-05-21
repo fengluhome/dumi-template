@@ -1,6 +1,7 @@
 import { defineConfig } from 'dumi';
-
-const repo = 'dumi-template';
+const path = require('path');
+const repo = 'antd';
+const chainWebpack = require('webpack-chain');
 
 export default defineConfig({
   title: repo,
@@ -21,6 +22,12 @@ export default defineConfig({
       path: 'https://github.com/umijs/dumi-template',
     },
   ],
+  // chainWebpack(memo) {
+  //   // 设置 alias
+  //   memo.resolve
+  //     .alias
+  //     .set('antd', path.resolve(__dirname, 'src/index.ts'))
+  // },
   // locales:[['zh-CN', '中文'],['en-US', 'English']]
   // more config: https://d.umijs.org/config
 });
