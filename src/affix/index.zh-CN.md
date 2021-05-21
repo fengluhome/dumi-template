@@ -14,6 +14,10 @@ cover: https://gw.alipayobjects.com/zos/alicdn/tX6-md4H6/Affix.svg
 
 页面可视范围过小时，慎用此功能以免遮挡页面内容。
 
+### Basic Usage
+
+<code src="./demo/single.tsx" height="300px"/>
+
 ## API
 
 | 成员         | 说明                                                                   | 类型              | 默认值       |
@@ -25,7 +29,7 @@ cover: https://gw.alipayobjects.com/zos/alicdn/tX6-md4H6/Affix.svg
 
 **注意：**`Affix` 内的元素不要使用绝对定位，如需要绝对定位的效果，可以直接设置 `Affix` 为绝对定位：
 
-```jsx
+```jsx | pure
 <Affix style={{ position: 'absolute', top: y, left: x }}>...</Affix>
 ```
 

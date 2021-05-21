@@ -13,6 +13,10 @@ On longer web pages, it's helpful to stick component into the viewport. This is 
 
 Please note that Affix should not cover other content on the page, especially when the size of the viewport is small.
 
+### Basic Usage
+
+<code src="./demo/single.tsx" height="300px"/>
+
 ## API
 
 | Property     | Description                                        | Type              | Default      |
@@ -24,7 +28,7 @@ Please note that Affix should not cover other content on the page, especially wh
 
 **Note:** Children of `Affix` must not have the property `position: absolute`, but you can set `position: absolute` on `Affix` itself:
 
-```jsx
+```jsx | pure
 <Affix style={{ position: 'absolute', top: y, left: x }}>...</Affix>
 ```
 
