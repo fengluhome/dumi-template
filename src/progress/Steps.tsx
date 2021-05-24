@@ -9,7 +9,7 @@ interface StepsProps extends ProgressProps {
   trailColor?: string;
 }
 
-const Steps: React.FC<StepsProps> = props => {
+const Steps: React.FC<StepsProps> = (props) => {
   const {
     size,
     steps,
@@ -22,7 +22,7 @@ const Steps: React.FC<StepsProps> = props => {
   } = props;
   const current = Math.round(steps * (percent / 100));
   const stepWidth = size === 'small' ? 2 : 14;
-  const styledSteps = [];
+  const styledSteps: React.ReactNode[] = [];
   for (let i = 0; i < steps; i += 1) {
     styledSteps.push(
       <div

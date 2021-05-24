@@ -16,6 +16,8 @@ import {
 function getDefaultTarget() {
   return typeof window !== 'undefined' ? window : null;
 }
+type Window = any;
+type HTMLElement = any;
 
 // Affix
 export interface AffixProps {

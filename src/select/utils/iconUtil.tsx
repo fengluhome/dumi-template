@@ -30,14 +30,20 @@ export default function getIcons({
   }
 
   // Arrow item icon
-  let mergedSuffixIcon = null;
+  let mergedSuffixIcon: React.ReactNode = null;
   if (suffixIcon !== undefined) {
     mergedSuffixIcon = suffixIcon;
   } else if (loading) {
     mergedSuffixIcon = <LoadingOutlined spin />;
   } else {
     const iconCls = `${prefixCls}-suffix`;
-    mergedSuffixIcon = ({ open, showSearch }: { open: boolean; showSearch: boolean }) => {
+    mergedSuffixIcon = ({
+      open,
+      showSearch,
+    }: {
+      open: boolean;
+      showSearch: boolean;
+    }) => {
       if (open && showSearch) {
         return <SearchOutlined className={iconCls} />;
       }
@@ -46,7 +52,7 @@ export default function getIcons({
   }
 
   // Checked item icon
-  let mergedItemIcon = null;
+  let mergedItemIcon: React.ReactNode = null;
   if (menuItemSelectedIcon !== undefined) {
     mergedItemIcon = menuItemSelectedIcon;
   } else if (multiple) {
@@ -55,7 +61,7 @@ export default function getIcons({
     mergedItemIcon = null;
   }
 
-  let mergedRemoveIcon = null;
+  let mergedRemoveIcon: React.ReactNode = null;
   if (removeIcon !== undefined) {
     mergedRemoveIcon = removeIcon;
   } else {

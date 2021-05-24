@@ -5,7 +5,11 @@ import Operation from './operation';
 import Search from './search';
 import LocaleReceiver from '../locale-provider/LocaleReceiver';
 import defaultLocale from '../locale/default';
-import { ConfigConsumer, ConfigConsumerProps, RenderEmptyHandler } from '../config-provider';
+import {
+  ConfigConsumer,
+  ConfigConsumerProps,
+  RenderEmptyHandler,
+} from '../config-provider';
 import { TransferListBodyProps } from './ListBody';
 import { PaginationType } from './interface';
 import devWarning from '../_util/devWarning';
@@ -21,7 +25,11 @@ export interface RenderResultObject {
   value: string;
 }
 
-export type RenderResult = React.ReactElement | RenderResultObject | string | null;
+export type RenderResult =
+  | React.ReactElement
+  | RenderResultObject
+  | string
+  | null;
 
 export interface TransferItem {
   key?: string;
@@ -67,8 +75,15 @@ export interface TransferProps<RecordType> {
   targetKeys?: string[];
   selectedKeys?: string[];
   render?: TransferRender<RecordType>;
-  onChange?: (targetKeys: string[], direction: TransferDirection, moveKeys: string[]) => void;
-  onSelectChange?: (sourceSelectedKeys: string[], targetSelectedKeys: string[]) => void;
+  onChange?: (
+    targetKeys: string[],
+    direction: TransferDirection,
+    moveKeys: string[],
+  ) => void;
+  onSelectChange?: (
+    sourceSelectedKeys: string[],
+    targetSelectedKeys: string[],
+  ) => void;
   style?: React.CSSProperties;
   listStyle: ((style: ListStyle) => React.CSSProperties) | React.CSSProperties;
   operationStyle?: React.CSSProperties;
@@ -80,7 +95,10 @@ export interface TransferProps<RecordType> {
   footer?: (props: TransferListProps<RecordType>) => React.ReactNode;
   rowKey?: (record: RecordType) => string;
   onSearch?: (direction: TransferDirection, value: string) => void;
-  onScroll?: (direction: TransferDirection, e: React.SyntheticEvent<HTMLUListElement>) => void;
+  onScroll?: (
+    direction: TransferDirection,
+    e: React.SyntheticEvent<HTMLUListElement>,
+  ) => void;
   children?: (props: TransferListBodyProps<RecordType>) => React.ReactNode;
   showSelectAll?: boolean;
   selectAllLabels?: SelectAllLabel[];
@@ -93,10 +111,9 @@ interface TransferState {
   targetSelectedKeys: string[];
 }
 
-class Transfer<RecordType extends TransferItem = TransferItem> extends React.Component<
-  TransferProps<RecordType>,
-  TransferState
-> {
+class Transfer<
+  RecordType extends TransferItem = TransferItem,
+> extends React.Component<TransferProps<RecordType>, TransferState> {
   // For high-level customized Transfer @dqaria
   static List = List;
 
@@ -120,8 +137,12 @@ class Transfer<RecordType extends TransferItem = TransferItem> extends React.Com
     if (selectedKeys) {
       const mergedTargetKeys = targetKeys || [];
       return {
-        sourceSelectedKeys: selectedKeys.filter(key => !mergedTargetKeys.includes(key)),
-        targetSelectedKeys: selectedKeys.filter(key => mergedTargetKeys.includes(key)),
+        sourceSelectedKeys: selectedKeys.filter(
+          (key) => !mergedTargetKeys.includes(key),
+        ),
+        targetSelectedKeys: selectedKeys.filter((key) =>
+          mergedTargetKeys.includes(key),
+        ),
       };
     }
 
@@ -144,8 +165,12 @@ class Transfer<RecordType extends TransferItem = TransferItem> extends React.Com
 
     const { selectedKeys = [], targetKeys = [] } = props;
     this.state = {
-      sourceSelectedKeys: selectedKeys.filter(key => targetKeys.indexOf(key) === -1),
-      targetSelectedKeys: selectedKeys.filter(key => targetKeys.indexOf(key) > -1),
+      sourceSelectedKeys: selectedKeys.filter(
+        (key) => targetKeys.indexOf(key) === -1,
+      ),
+      targetSelectedKeys: selectedKeys.filter(
+        (key) => targetKeys.indexOf(key) > -1,
+      ),
     };
   }
 
@@ -155,11 +180,13 @@ class Transfer<RecordType extends TransferItem = TransferItem> extends React.Com
   ) => {
     if (direction === 'left') {
       this.setState(({ sourceSelectedKeys }) => ({
-        sourceSelectedKeys: typeof keys === 'function' ? keys(sourceSelectedKeys || []) : keys,
+        sourceSelectedKeys:
+          typeof keys === 'function' ? keys(sourceSelectedKeys || []) : keys,
       }));
     } else {
       this.setState(({ targetSelectedKeys }) => ({
-        targetSelectedKeys: typeof keys === 'function' ? keys(targetSelectedKeys || []) : keys,
+        targetSelectedKeys:
+          typeof keys === 'function' ? keys(targetSelectedKeys || []) : keys,
       }));
     }
   };
@@ -172,7 +199,10 @@ class Transfer<RecordType extends TransferItem = TransferItem> extends React.Com
     return transferLocale.titles;
   }
 
-  getLocale = (transferLocale: TransferLocale, renderEmpty: RenderEmptyHandler) => ({
+  getLocale = (
+    transferLocale: TransferLocale,
+    renderEmpty: RenderEmptyHandler,
+  ) => ({
     ...transferLocale,
     notFoundContent: renderEmpty('Transfer'),
     ...this.props.locale,
@@ -181,16 +211,20 @@ class Transfer<RecordType extends TransferItem = TransferItem> extends React.Com
   moveTo = (direction: TransferDirection) => {
     const { targetKeys = [], dataSource = [], onChange } = this.props;
     const { sourceSelectedKeys, targetSelectedKeys } = this.state;
-    const moveKeys = direction === 'right' ? sourceSelectedKeys : targetSelectedKeys;
+    const moveKeys =
+      direction === 'right' ? sourceSelectedKeys : targetSelectedKeys;
     // filter the disabled options
     const newMoveKeys = moveKeys.filter(
-      (key: string) => !dataSource.some(data => !!(key === data.key && data.disabled)),
+      (key: string) =>
+        !dataSource.some((data) => !!(key === data.key && data.disabled)),
     );
     // move items to target box
     const newTargetKeys =
       direction === 'right'
         ? newMoveKeys.concat(targetKeys)
-        : targetKeys.filter(targetKey => newMoveKeys.indexOf(targetKey) === -1);
+        : targetKeys.filter(
+            (targetKey) => newMoveKeys.indexOf(targetKey) === -1,
+          );
 
     // empty checked keys
     const oppositeDirection = direction === 'right' ? 'left' : 'right';
@@ -204,15 +238,21 @@ class Transfer<RecordType extends TransferItem = TransferItem> extends React.Com
 
   moveToRight = () => this.moveTo('right');
 
-  onItemSelectAll = (direction: TransferDirection, selectedKeys: string[], checkAll: boolean) => {
-    this.setStateKeys(direction, prevKeys => {
-      let mergedCheckedKeys = [];
+  onItemSelectAll = (
+    direction: TransferDirection,
+    selectedKeys: string[],
+    checkAll: boolean,
+  ) => {
+    this.setStateKeys(direction, (prevKeys) => {
+      let mergedCheckedKeys: string[] = [];
       if (checkAll) {
         // Merge current keys with origin key
         mergedCheckedKeys = Array.from(new Set([...prevKeys, ...selectedKeys]));
       } else {
         // Remove current keys from origin keys
-        mergedCheckedKeys = prevKeys.filter((key: string) => selectedKeys.indexOf(key) === -1);
+        mergedCheckedKeys = prevKeys.filter(
+          (key: string) => selectedKeys.indexOf(key) === -1,
+        );
       }
 
       this.handleSelectChange(direction, mergedCheckedKeys);
@@ -227,15 +267,20 @@ class Transfer<RecordType extends TransferItem = TransferItem> extends React.Com
   onRightItemSelectAll = (selectedKeys: string[], checkAll: boolean) =>
     this.onItemSelectAll('right', selectedKeys, checkAll);
 
-  handleFilter = (direction: TransferDirection, e: React.ChangeEvent<HTMLInputElement>) => {
+  handleFilter = (
+    direction: TransferDirection,
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const { onSearch } = this.props;
     const { value } = e.target;
     onSearch?.(direction, value);
   };
 
-  handleLeftFilter = (e: React.ChangeEvent<HTMLInputElement>) => this.handleFilter('left', e);
+  handleLeftFilter = (e: React.ChangeEvent<HTMLInputElement>) =>
+    this.handleFilter('left', e);
 
-  handleRightFilter = (e: React.ChangeEvent<HTMLInputElement>) => this.handleFilter('right', e);
+  handleRightFilter = (e: React.ChangeEvent<HTMLInputElement>) =>
+    this.handleFilter('right', e);
 
   handleClear = (direction: TransferDirection) => {
     const { onSearch } = this.props;
@@ -246,9 +291,14 @@ class Transfer<RecordType extends TransferItem = TransferItem> extends React.Com
 
   handleRightClear = () => this.handleClear('right');
 
-  onItemSelect = (direction: TransferDirection, selectedKey: string, checked: boolean) => {
+  onItemSelect = (
+    direction: TransferDirection,
+    selectedKey: string,
+    checked: boolean,
+  ) => {
     const { sourceSelectedKeys, targetSelectedKeys } = this.state;
-    const holder = direction === 'left' ? [...sourceSelectedKeys] : [...targetSelectedKeys];
+    const holder =
+      direction === 'left' ? [...sourceSelectedKeys] : [...targetSelectedKeys];
     const index = holder.indexOf(selectedKey);
     if (index > -1) {
       holder.splice(index, 1);
@@ -275,20 +325,25 @@ class Transfer<RecordType extends TransferItem = TransferItem> extends React.Com
     this.setStateKeys('right', []);
 
     onChange?.(
-      targetKeys.filter(key => !selectedKeys.includes(key)),
+      targetKeys.filter((key) => !selectedKeys.includes(key)),
       'left',
       [...selectedKeys],
     );
   };
 
-  handleScroll = (direction: TransferDirection, e: React.SyntheticEvent<HTMLUListElement>) => {
+  handleScroll = (
+    direction: TransferDirection,
+    e: React.SyntheticEvent<HTMLUListElement>,
+  ) => {
     const { onScroll } = this.props;
     onScroll?.(direction, e);
   };
 
-  handleLeftScroll = (e: React.SyntheticEvent<HTMLUListElement>) => this.handleScroll('left', e);
+  handleLeftScroll = (e: React.SyntheticEvent<HTMLUListElement>) =>
+    this.handleScroll('left', e);
 
-  handleRightScroll = (e: React.SyntheticEvent<HTMLUListElement>) => this.handleScroll('right', e);
+  handleRightScroll = (e: React.SyntheticEvent<HTMLUListElement>) =>
+    this.handleScroll('right', e);
 
   handleSelectChange(direction: TransferDirection, holder: string[]) {
     const { sourceSelectedKeys, targetSelectedKeys } = this.state;
@@ -305,7 +360,9 @@ class Transfer<RecordType extends TransferItem = TransferItem> extends React.Com
   }
 
   handleListStyle = (
-    listStyle: ((style: ListStyle) => React.CSSProperties) | React.CSSProperties,
+    listStyle:
+      | ((style: ListStyle) => React.CSSProperties)
+      | React.CSSProperties,
     direction: TransferDirection,
   ) => {
     if (typeof listStyle === 'function') {
@@ -456,7 +513,10 @@ class Transfer<RecordType extends TransferItem = TransferItem> extends React.Com
 
   render() {
     return (
-      <LocaleReceiver componentName="Transfer" defaultLocale={defaultLocale.Transfer}>
+      <LocaleReceiver
+        componentName="Transfer"
+        defaultLocale={defaultLocale.Transfer}
+      >
         {this.renderTransfer}
       </LocaleReceiver>
     );
