@@ -1,5 +1,5 @@
 import * as React from 'react';
-import RcSwitch from 'rc-switch';
+import RcSwitch from '@/_rc/switch';
 import classNames from 'classnames';
 import LoadingOutlined from '@ant-design/icons/LoadingOutlined';
 
@@ -9,9 +9,13 @@ import SizeContext from '../config-provider/SizeContext';
 import devWarning from '../_util/devWarning';
 
 export type SwitchSize = 'small' | 'default';
-export type SwitchChangeEventHandler = (checked: boolean, event: MouseEvent) => void;
+export type SwitchChangeEventHandler = (
+  checked: boolean,
+  event:
+    | React.MouseEvent<HTMLButtonElement>
+    | React.KeyboardEvent<HTMLButtonElement>,
+) => void;
 export type SwitchClickEventHandler = SwitchChangeEventHandler;
-
 export interface SwitchProps {
   prefixCls?: string;
   size?: SwitchSize;
@@ -30,11 +34,13 @@ export interface SwitchProps {
 }
 
 interface CompoundedComponent
-  extends React.ForwardRefExoticComponent<SwitchProps & React.RefAttributes<HTMLElement>> {
+  extends React.ForwardRefExoticComponent<
+    SwitchProps & React.RefAttributes<HTMLElement>
+  > {
   __ANT_SWITCH: boolean;
 }
 
-const Switch = React.forwardRef<unknown, SwitchProps>(
+const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
   (
     {
       prefixCls: customizePrefixCls,

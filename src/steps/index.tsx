@@ -1,6 +1,6 @@
 import * as React from 'react';
 import omit from 'rc-util/lib/omit';
-import RcSteps from 'rc-steps';
+import RcSteps from '@/steps';
 import CheckOutlined from '@ant-design/icons/CheckOutlined';
 import CloseOutlined from '@ant-design/icons/CloseOutlined';
 import classNames from 'classnames';
@@ -24,6 +24,8 @@ export interface StepsProps {
   style?: React.CSSProperties;
   percent?: number;
   onChange?: (current: number) => void;
+  stepIcon?;
+  icons?;
 }
 
 export interface StepProps {
@@ -39,18 +41,26 @@ export interface StepProps {
 }
 
 interface StepsType extends React.FC<StepsProps> {
-  Step: React.ClassicComponentClass<StepProps>;
+  Step: React.ClassicComponentClass<StepProps> | any;
 }
+export type StepIconRender = (info: {
+  index: number;
+  status: string;
+  title: string | React.ReactNode;
+  description: string | React.ReactNode;
+  node: React.ReactNode;
+}) => React.ReactNode;
 
-const Steps: StepsType = props => {
+const Steps: StepsType = (props) => {
   const { percent, size, className, direction, responsive } = props;
   const { xs } = useBreakpoint();
-  const { getPrefixCls, direction: rtlDirection } = React.useContext(ConfigContext);
+  const { getPrefixCls, direction: rtlDirection } =
+    React.useContext(ConfigContext);
 
-  const getDirection = React.useCallback(() => (responsive && xs ? 'vertical' : direction), [
-    xs,
-    direction,
-  ]);
+  const getDirection = React.useCallback(
+    () => (responsive && xs ? 'vertical' : direction),
+    [xs, direction],
+  );
 
   const prefixCls = getPrefixCls('steps', props.prefixCls);
   const iconPrefix = getPrefixCls('', props.iconPrefix);
@@ -65,15 +75,15 @@ const Steps: StepsType = props => {
     finish: <CheckOutlined className={`${prefixCls}-finish-icon`} />,
     error: <CloseOutlined className={`${prefixCls}-error-icon`} />,
   };
-  const stepIconRender = ({
+  const stepIconRender: StepIconRender = ({
     node,
     status,
   }: {
-    node: React.ReactNode;
     index: number;
     status: string;
     title: string | React.ReactNode;
     description: string | React.ReactNode;
+    node: React.ReactNode;
   }) => {
     if (status === 'process' && percent !== undefined) {
       // currently it's hard-coded, since we can't easily read the actually width of icon

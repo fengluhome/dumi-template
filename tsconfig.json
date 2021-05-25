@@ -3,7 +3,8 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
-      "@@/*": ["src/.umi/*"]
+      "@@/*": ["src/.umi/*"],
+      "antd": ["src/index.ts"]
     },
     "target": "es6",
     "lib": ["dom", "es2017"],

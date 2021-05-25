@@ -4,7 +4,10 @@ import RcTree from 'rc-tree';
 import debounce from 'lodash/debounce';
 import { conductExpandParent } from 'rc-tree/lib/util';
 import { EventDataNode, DataNode, Key } from 'rc-tree/lib/interface';
-import { convertDataToEntities, convertTreeToData } from 'rc-tree/lib/utils/treeUtil';
+import {
+  convertDataToEntities,
+  convertTreeToData,
+} from 'rc-tree/lib/utils/treeUtil';
 import FileOutlined from '@ant-design/icons/FileOutlined';
 import FolderOpenOutlined from '@ant-design/icons/FolderOpenOutlined';
 import FolderOutlined from '@ant-design/icons/FolderOutlined';
@@ -36,7 +39,10 @@ function getTreeData({ treeData, children }: DirectoryTreeProps) {
   return treeData || convertTreeToData(children);
 }
 
-const DirectoryTree: React.ForwardRefRenderFunction<RcTree, DirectoryTreeProps> = (
+const DirectoryTree: React.ForwardRefRenderFunction<
+  RcTree,
+  DirectoryTreeProps
+> = (
   { defaultExpandAll, defaultExpandParent, defaultExpandedKeys, ...props },
   ref,
 ) => {
@@ -59,7 +65,7 @@ const DirectoryTree: React.ForwardRefRenderFunction<RcTree, DirectoryTreeProps> 
       initExpandedKeys = Object.keys(keyEntities);
     } else if (defaultExpandParent) {
       initExpandedKeys = conductExpandParent(
-        props.expandedKeys || defaultExpandedKeys,
+        (props.expandedKeys || defaultExpandedKeys) as Key[],
         keyEntities,
       );
     } else {
@@ -85,7 +91,10 @@ const DirectoryTree: React.ForwardRefRenderFunction<RcTree, DirectoryTreeProps> 
     }
   }, [props.expandedKeys]);
 
-  const expandFolderNode = (event: React.MouseEvent<HTMLElement>, node: any) => {
+  const expandFolderNode = (
+    event: React.MouseEvent<HTMLElement>,
+    node: any,
+  ) => {
     const { isLeaf } = node;
 
     if (isLeaf || event.shiftKey || event.metaKey || event.ctrlKey) {
@@ -115,7 +124,10 @@ const DirectoryTree: React.ForwardRefRenderFunction<RcTree, DirectoryTreeProps> 
     return props.onExpand?.(keys, info);
   };
 
-  const onClick = (event: React.MouseEvent<HTMLElement>, node: EventDataNode) => {
+  const onClick = (
+    event: React.MouseEvent<HTMLElement>,
+    node: EventDataNode,
+  ) => {
     const { expandAction } = props;
 
     // Expand the tree
@@ -126,7 +138,10 @@ const DirectoryTree: React.ForwardRefRenderFunction<RcTree, DirectoryTreeProps> 
     props.onClick?.(event, node);
   };
 
-  const onDoubleClick = (event: React.MouseEvent<HTMLElement>, node: EventDataNode) => {
+  const onDoubleClick = (
+    event: React.MouseEvent<HTMLElement>,
+    node: EventDataNode,
+  ) => {
     const { expandAction } = props;
 
     // Expand the tree
@@ -171,7 +186,10 @@ const DirectoryTree: React.ForwardRefRenderFunction<RcTree, DirectoryTreeProps> 
       newSelectedKeys = keys;
       lastSelectedKey.current = key;
       cachedSelectedKeys.current = newSelectedKeys;
-      newEvent.selectedNodes = convertDirectoryKeysToNodes(treeData, newSelectedKeys);
+      newEvent.selectedNodes = convertDirectoryKeysToNodes(
+        treeData,
+        newSelectedKeys,
+      );
     } else if (multiple && shiftPick) {
       // Shift click
       newSelectedKeys = Array.from(
@@ -185,13 +203,19 @@ const DirectoryTree: React.ForwardRefRenderFunction<RcTree, DirectoryTreeProps> 
           }),
         ]),
       );
-      newEvent.selectedNodes = convertDirectoryKeysToNodes(treeData, newSelectedKeys);
+      newEvent.selectedNodes = convertDirectoryKeysToNodes(
+        treeData,
+        newSelectedKeys,
+      );
     } else {
       // Single click
       newSelectedKeys = [key];
       lastSelectedKey.current = key;
       cachedSelectedKeys.current = newSelectedKeys;
-      newEvent.selectedNodes = convertDirectoryKeysToNodes(treeData, newSelectedKeys);
+      newEvent.selectedNodes = convertDirectoryKeysToNodes(
+        treeData,
+        newSelectedKeys,
+      );
     }
 
     props.onSelect?.(newSelectedKeys, newEvent);

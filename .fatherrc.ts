@@ -1,5 +1,4 @@
 export default {
-  esm: 'rollup',
-  cjs: 'rollup',
-  include: 'src/**',
+  cjs: 'babel',
+  esm: { type: 'babel', importLibToEs: true },
 };
