@@ -99,7 +99,7 @@ export default class Wave extends React.Component<{
       const nodeBody: Element =
         nodeRoot instanceof Document
           ? nodeRoot.body
-          : (nodeRoot.firstChild as Element) ?? nodeRoot;
+          : (nodeRoot.firstChild as Element) ?? (nodeRoot as Element);
 
       styleForPseudo = updateCSS(
         `
@@ -117,7 +117,7 @@ export default class Wave extends React.Component<{
     if (insertExtraNode) {
       node.appendChild(extraNode);
     }
-    ['transition', 'animation'].forEach(name => {
+    ['transition', 'animation'].forEach((name) => {
       node.addEventListener(`${name}start`, this.onTransitionStart);
       node.addEventListener(`${name}end`, this.onTransitionEnd);
     });
@@ -209,7 +209,7 @@ export default class Wave extends React.Component<{
     if (insertExtraNode && this.extraNode && node.contains(this.extraNode)) {
       node.removeChild(this.extraNode);
     }
-    ['transition', 'animation'].forEach(name => {
+    ['transition', 'animation'].forEach((name) => {
       node.removeEventListener(`${name}start`, this.onTransitionStart);
       node.removeEventListener(`${name}end`, this.onTransitionEnd);
     });
