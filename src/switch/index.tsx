@@ -1,5 +1,5 @@
 import * as React from 'react';
-import RcSwitch from '@/_rc/switch';
+import RcSwitch from '../_rc/switch';
 import classNames from 'classnames';
 import LoadingOutlined from '@ant-design/icons/LoadingOutlined';
 

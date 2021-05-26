@@ -1,5 +1,5 @@
 import type { ReactNode, CSSProperties } from 'react';
-import type { GetContainer } from '@/_rc/util/PortalWrapper';
+import type { GetContainer } from '../../_rc/util/PortalWrapper';
 
 export type IDialogPropTypes = {
   className?: string;

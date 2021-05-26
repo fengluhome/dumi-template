@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { useRef, useEffect } from 'react';
 import classNames from 'classnames';
-import KeyCode from '@/_rc/util/KeyCode';
-import contains from '@/_rc/util/Dom/contains';
-import type ScrollLocker from '@/_rc/util/Dom/scrollLocker';
+import KeyCode from '../../util/KeyCode';
+import contains from '../../util/Dom/contains';
+import type ScrollLocker from '../../util/Dom/scrollLocker';
 import type { IDialogPropTypes } from '../IDialogPropTypes';
 import Mask from './Mask';
 import { getMotionName, getUUID } from '../util';

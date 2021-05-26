@@ -1,6 +1,6 @@
 import * as React from 'react';
 import omit from 'rc-util/lib/omit';
-import RcSteps from '@/steps';
+import RcSteps from '../_rc/steps';
 import CheckOutlined from '@ant-design/icons/CheckOutlined';
 import CloseOutlined from '@ant-design/icons/CloseOutlined';
 import classNames from 'classnames';

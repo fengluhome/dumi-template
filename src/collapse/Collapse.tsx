@@ -1,5 +1,5 @@
 import * as React from 'react';
-import RcCollapse from '@/_rc/collapse';
+import RcCollapse from '../_rc/collapse';
 import { CSSMotionProps } from 'rc-motion';
 import classNames from 'classnames';
 import RightOutlined from '@ant-design/icons/RightOutlined';

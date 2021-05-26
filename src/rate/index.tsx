@@ -1,5 +1,5 @@
 import * as React from 'react';
-import RcRate from '@/_rc/rate';
+import RcRate from '../_rc/rate';
 import StarFilled from '@ant-design/icons/StarFilled';
 
 import Tooltip from '../tooltip';

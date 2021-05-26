@@ -1,8 +1,8 @@
 import * as React from 'react';
-import RcCheckbox from '@/_rc/checkbox';
+import RcCheckbox from '../_rc/checkbox';
 import classNames from 'classnames';
 // import { composeRef } from 'rc-util/lib/ref';
-import { composeRef } from '@/_rc/util/ref';
+import { composeRef } from '../_rc/util/ref';
 import { RadioProps, RadioChangeEvent } from './interface';
 import { ConfigContext } from '../config-provider';
 import RadioGroupContext from './context';

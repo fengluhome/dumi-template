@@ -1,6 +1,6 @@
 import * as React from 'react';
 // import Portal from 'rc-util/lib/PortalWrapper';
-import Portal from '@/_rc/util/PortalWrapper';
+import Portal from '../../_rc/util/PortalWrapper';
 import type { IDialogChildProps } from './Dialog';
 import Dialog from './Dialog';
 import type { IDialogPropTypes } from './IDialogPropTypes';

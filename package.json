@@ -1,6 +1,6 @@
 {
-  "name": "antd",
-  "version": "0.0.1",
+  "name": "ant_est_and_yhb",
+  "version": "0.0.3",
   "scripts": {
     "start": "dumi dev",
     "docs:build": "dumi build",
@@ -12,9 +12,9 @@
     "test": "umi-test",
     "test:coverage": "umi-test --coverage"
   },
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "typings": "dist/index.d.ts",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "typings": "lib/index.d.ts",
   "gitHooks": {
     "pre-commit": "lint-staged"
   },

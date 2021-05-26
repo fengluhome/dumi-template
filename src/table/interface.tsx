@@ -4,7 +4,7 @@ import {
   ColumnType as RcColumnType,
   RenderedCell as RcRenderedCell,
   ExpandableConfig,
-} from '@/_rc/table/interface';
+} from '../_rc/table/interface';
 import { TooltipProps } from '../tooltip';
 import { CheckboxProps } from '../checkbox';
 import { PaginationProps } from '../pagination';

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import RcCheckbox from '@/_rc/checkbox';
+import RcCheckbox from '../_rc/checkbox';
 import { GroupContext } from './Group';
 import { ConfigContext } from '../config-provider';
 import devWarning from '../_util/devWarning';

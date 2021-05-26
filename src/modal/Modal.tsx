@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Dialog from '@/_rc/dialog';
+import Dialog from '../_rc/dialog';
 import classNames from 'classnames';
 import CloseOutlined from '@ant-design/icons/CloseOutlined';
 
