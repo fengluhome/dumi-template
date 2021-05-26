@@ -1,5 +1,5 @@
 import * as React from 'react';
-import RcCollapse from 'rc-collapse';
+import RcCollapse from '@/_rc/collapse';
 import { CSSMotionProps } from 'rc-motion';
 import classNames from 'classnames';
 import RightOutlined from '@ant-design/icons/RightOutlined';
@@ -47,7 +47,7 @@ interface CollapseInterface extends React.FC<CollapseProps> {
   Panel: typeof CollapsePanel;
 }
 
-const Collapse: CollapseInterface = props => {
+const Collapse: CollapseInterface = (props) => {
   const { getPrefixCls, direction } = React.useContext(ConfigContext);
   const {
     prefixCls: customizePrefixCls,
@@ -67,11 +67,13 @@ const Collapse: CollapseInterface = props => {
 
   const renderExpandIcon = (panelProps: PanelProps = {}) => {
     const { expandIcon } = props;
-    const icon = (expandIcon ? (
-      expandIcon(panelProps)
-    ) : (
-      <RightOutlined rotate={panelProps.isActive ? 90 : undefined} />
-    )) as React.ReactNode;
+    const icon = (
+      expandIcon ? (
+        expandIcon(panelProps)
+      ) : (
+        <RightOutlined rotate={panelProps.isActive ? 90 : undefined} />
+      )
+    ) as React.ReactNode;
 
     return cloneElement(icon, () => ({
       className: classNames(
@@ -118,7 +120,6 @@ const Collapse: CollapseInterface = props => {
     <RcCollapse
       openMotion={openMotion}
       {...props}
-      bordered={bordered}
       expandIcon={renderExpandIcon}
       prefixCls={prefixCls}
       className={collapseClassName}
