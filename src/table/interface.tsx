@@ -4,7 +4,7 @@ import {
   ColumnType as RcColumnType,
   RenderedCell as RcRenderedCell,
   ExpandableConfig,
-} from 'rc-table/lib/interface';
+} from '@/_rc/table/interface';
 import { TooltipProps } from '../tooltip';
 import { CheckboxProps } from '../checkbox';
 import { PaginationProps } from '../pagination';
@@ -103,7 +103,9 @@ export interface ColumnType<RecordType> extends RcColumnType<RecordType> {
   // Filter
   filtered?: boolean;
   filters?: ColumnFilterItem[];
-  filterDropdown?: React.ReactNode | ((props: FilterDropdownProps) => React.ReactNode);
+  filterDropdown?:
+    | React.ReactNode
+    | ((props: FilterDropdownProps) => React.ReactNode);
   filterMultiple?: boolean;
   filteredValue?: FilterValue | null;
   defaultFilteredValue?: FilterValue | null;
@@ -116,7 +118,8 @@ export interface ColumnType<RecordType> extends RcColumnType<RecordType> {
   responsive?: Breakpoint[];
 }
 
-export interface ColumnGroupType<RecordType> extends Omit<ColumnType<RecordType>, 'dataIndex'> {
+export interface ColumnGroupType<RecordType>
+  extends Omit<ColumnType<RecordType>, 'dataIndex'> {
   children: ColumnsType<RecordType>;
 }
 
@@ -145,9 +148,15 @@ export interface TableRowSelection<T> {
   selectedRowKeys?: Key[];
   defaultSelectedRowKeys?: Key[];
   onChange?: (selectedRowKeys: Key[], selectedRows: T[]) => void;
-  getCheckboxProps?: (record: T) => Partial<Omit<CheckboxProps, 'checked' | 'defaultChecked'>>;
+  getCheckboxProps?: (
+    record: T,
+  ) => Partial<Omit<CheckboxProps, 'checked' | 'defaultChecked'>>;
   onSelect?: SelectionSelectFn<T>;
-  onSelectMultiple?: (selected: boolean, selectedRows: T[], changeRows: T[]) => void;
+  onSelectMultiple?: (
+    selected: boolean,
+    selectedRows: T[],
+    changeRows: T[],
+  ) => void;
   /** @deprecated This function is meaningless and should use `onChange` instead */
   onSelectAll?: (selected: boolean, selectedRows: T[], changeRows: T[]) => void;
   /** @deprecated This function is meaningless and should use `onChange` instead */
