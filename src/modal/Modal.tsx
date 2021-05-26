@@ -1,12 +1,16 @@
 import * as React from 'react';
-import Dialog from 'rc-dialog';
+import Dialog from '@/_rc/dialog';
 import classNames from 'classnames';
 import CloseOutlined from '@ant-design/icons/CloseOutlined';
 
 import useModal from './useModal';
 import { getConfirmLocale } from './locale';
 import Button from '../button';
-import { LegacyButtonType, ButtonProps, convertLegacyProps } from '../button/button';
+import {
+  LegacyButtonType,
+  ButtonProps,
+  convertLegacyProps,
+} from '../button/button';
 import LocaleReceiver from '../locale-provider/LocaleReceiver';
 import { ConfigContext, DirectionType } from '../config-provider';
 import { canUseDocElement } from '../_util/styleChecker';
@@ -135,10 +139,12 @@ interface ModalInterface extends React.FC<ModalProps> {
   useModal: typeof useModal;
 }
 
-const Modal: ModalInterface = props => {
-  const { getPopupContainer: getContextPopupContainer, getPrefixCls, direction } = React.useContext(
-    ConfigContext,
-  );
+const Modal: ModalInterface = (props) => {
+  const {
+    getPopupContainer: getContextPopupContainer,
+    getPrefixCls,
+    direction,
+  } = React.useContext(ConfigContext);
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { onCancel } = props;
@@ -203,7 +209,9 @@ const Modal: ModalInterface = props => {
   return (
     <Dialog
       {...restProps}
-      getContainer={getContainer === undefined ? getContextPopupContainer : getContainer}
+      getContainer={
+        getContainer === undefined ? getContextPopupContainer : getContainer
+      }
       prefixCls={prefixCls}
       wrapClassName={wrapClassNameExtended}
       footer={footer === undefined ? defaultFooter : footer}
@@ -212,8 +220,16 @@ const Modal: ModalInterface = props => {
       onClose={handleCancel}
       closeIcon={closeIconToRender}
       focusTriggerAfterClose={focusTriggerAfterClose}
-      transitionName={getTransitionName(rootPrefixCls, 'zoom', props.transitionName)}
-      maskTransitionName={getTransitionName(rootPrefixCls, 'fade', props.maskTransitionName)}
+      transitionName={getTransitionName(
+        rootPrefixCls,
+        'zoom',
+        props.transitionName,
+      )}
+      maskTransitionName={getTransitionName(
+        rootPrefixCls,
+        'fade',
+        props.maskTransitionName,
+      )}
     />
   );
 };
