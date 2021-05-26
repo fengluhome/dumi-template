@@ -33,7 +33,7 @@ export const SELECTION_NONE = 'SELECT_NONE' as const;
 function getFixedType<RecordType>(
   column: ColumnsType<RecordType>[number],
 ): FixedType | undefined {
-  return column && column.fixed;
+  return (column && column.fixed) as FixedType;
 }
 
 interface UseSelectionConfig<RecordType> {

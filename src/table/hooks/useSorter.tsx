@@ -20,8 +20,13 @@ import { getColumnKey, getColumnPos, renderColumnTitle } from '../util';
 const ASCEND = 'ascend';
 const DESCEND = 'descend';
 
-function getMultiplePriority<RecordType>(column: ColumnType<RecordType>): number | false {
-  if (typeof column.sorter === 'object' && typeof column.sorter.multiple === 'number') {
+function getMultiplePriority<RecordType>(
+  column: ColumnType<RecordType>,
+): number | false {
+  if (
+    typeof column.sorter === 'object' &&
+    typeof column.sorter.multiple === 'number'
+  ) {
     return column.sorter.multiple;
   }
   return false;
@@ -39,7 +44,10 @@ function getSortFunction<RecordType>(
   return false;
 }
 
-function nextSortDirection(sortDirections: SortOrder[], current: SortOrder | null) {
+function nextSortDirection(
+  sortDirections: SortOrder[],
+  current: SortOrder | null,
+) {
   if (!current) {
     return sortDirections[0];
   }
@@ -61,7 +69,10 @@ function collectSortStates<RecordType>(
 ): SortState<RecordType>[] {
   let sortStates: SortState<RecordType>[] = [];
 
-  function pushState(column: ColumnsType<RecordType>[number], columnPos: string) {
+  function pushState(
+    column: ColumnsType<RecordType>[number],
+    columnPos: string,
+  ) {
     sortStates.push({
       column,
       key: getColumnKey(column, columnPos),
@@ -80,7 +91,11 @@ function collectSortStates<RecordType>(
       }
       sortStates = [
         ...sortStates,
-        ...collectSortStates((column as ColumnGroupType<RecordType>).children, init, columnPos),
+        ...collectSortStates(
+          (column as ColumnGroupType<RecordType>).children,
+          init,
+          columnPos,
+        ),
       ];
     } else if (column.sorter) {
       if ('sortOrder' in column) {
@@ -116,7 +131,8 @@ function injectSorter<RecordType>(
     let newColumn: ColumnsType<RecordType>[number] = column;
 
     if (newColumn.sorter) {
-      const sortDirections: SortOrder[] = newColumn.sortDirections || defaultSortDirections;
+      const sortDirections: SortOrder[] =
+        newColumn.sortDirections || defaultSortDirections;
       const showSorterTooltip =
         newColumn.showSorterTooltip === undefined
           ? tableShowSorterTooltip
@@ -147,10 +163,14 @@ function injectSorter<RecordType>(
         sortTip = triggerAsc;
       }
       const tooltipProps: TooltipProps =
-        typeof showSorterTooltip === 'object' ? showSorterTooltip : { title: sortTip };
+        typeof showSorterTooltip === 'object'
+          ? showSorterTooltip
+          : { title: sortTip };
       newColumn = {
         ...newColumn,
-        className: classNames(newColumn.className, { [`${prefixCls}-column-sort`]: sorterOrder }),
+        className: classNames(newColumn.className, {
+          [`${prefixCls}-column-sort`]: sorterOrder,
+        }),
         title: (renderProps: ColumnTitleProps<RecordType>) => {
           const renderSortTitle = (
             <div className={`${prefixCls}-column-sorters`}>
@@ -169,13 +189,15 @@ function injectSorter<RecordType>(
           );
           return showSorterTooltip ? (
             <Tooltip {...tooltipProps}>
-              <div className={`${prefixCls}-column-sorters-with-tooltip`}>{renderSortTitle}</div>
+              <div className={`${prefixCls}-column-sorters-with-tooltip`}>
+                {renderSortTitle}
+              </div>
             </Tooltip>
           ) : (
             renderSortTitle
           );
         },
-        onHeaderCell: col => {
+        onHeaderCell: (col) => {
           const cell: React.HTMLAttributes<HTMLElement> =
             (column.onHeaderCell && column.onHeaderCell(col)) || {};
           const originOnClick = cell.onClick;
@@ -192,7 +214,10 @@ function injectSorter<RecordType>(
             }
           };
 
-          cell.className = classNames(cell.className, `${prefixCls}-column-has-sorters`);
+          cell.className = classNames(
+            cell.className,
+            `${prefixCls}-column-has-sorters`,
+          );
 
           return cell;
         },
@@ -221,13 +246,20 @@ function injectSorter<RecordType>(
 
 function stateToInfo<RecordType>(sorterStates: SortState<RecordType>) {
   const { column, sortOrder } = sorterStates;
-  return { column, order: sortOrder, field: column.dataIndex, columnKey: column.key };
+  return {
+    column,
+    order: sortOrder,
+    field: column.dataIndex,
+    columnKey: column.key,
+  };
 }
 
 function generateSorterInfo<RecordType>(
   sorterStates: SortState<RecordType>[],
 ): SorterResult<RecordType> | SorterResult<RecordType>[] {
-  const list = sorterStates.filter(({ sortOrder }) => sortOrder).map(stateToInfo);
+  const list = sorterStates
+    .filter(({ sortOrder }) => sortOrder)
+    .map(stateToInfo);
 
   // =========== Legacy compatible support ===========
   // https://github.com/ant-design/ant-design/pull/19226
@@ -252,7 +284,9 @@ export function getSortData<RecordType>(
 ): RecordType[] {
   const innerSorterStates = sortStates
     .slice()
-    .sort((a, b) => (b.multiplePriority as number) - (a.multiplePriority as number));
+    .sort(
+      (a, b) => (b.multiplePriority as number) - (a.multiplePriority as number),
+    );
 
   const cloneData = data.slice();
 
@@ -287,12 +321,16 @@ export function getSortData<RecordType>(
 
       return 0;
     })
-    .map<RecordType>(record => {
+    .map<RecordType>((record) => {
       const subRecords = (record as any)[childrenColumnName];
       if (subRecords) {
         return {
           ...record,
-          [childrenColumnName]: getSortData(subRecords, sortStates, childrenColumnName),
+          [childrenColumnName]: getSortData(
+            subRecords,
+            sortStates,
+            childrenColumnName,
+          ),
         };
       }
       return record;
@@ -351,7 +389,7 @@ export default function useFilterSorter<RecordType>({
     }
 
     let multipleMode: boolean | null = null;
-    collectedStates.forEach(state => {
+    collectedStates.forEach((state) => {
       if (multipleMode === null) {
         patchStates(state);
 
@@ -374,7 +412,9 @@ export default function useFilterSorter<RecordType>({
   }, [mergedColumns, sortStates]);
 
   // Get render columns title required props
-  const columnTitleSorterProps = React.useMemo<ColumnTitleProps<RecordType>>(() => {
+  const columnTitleSorterProps = React.useMemo<
+    ColumnTitleProps<RecordType>
+  >(() => {
     const sortColumns = mergedSorterStates.map(({ column, sortOrder }) => ({
       column,
       order: sortOrder,
@@ -384,7 +424,7 @@ export default function useFilterSorter<RecordType>({
       sortColumns,
       // Legacy
       sortColumn: sortColumns[0] && sortColumns[0].column,
-      sortOrder: sortColumns[0] && sortColumns[0].order,
+      sortOrder: (sortColumns[0] && sortColumns[0].order) as SortOrder,
     };
   }, [mergedSorterStates]);
 
@@ -421,5 +461,10 @@ export default function useFilterSorter<RecordType>({
 
   const getSorters = () => generateSorterInfo(mergedSorterStates);
 
-  return [transformColumns, mergedSorterStates, columnTitleSorterProps, getSorters];
+  return [
+    transformColumns,
+    mergedSorterStates,
+    columnTitleSorterProps,
+    getSorters,
+  ];
 }
