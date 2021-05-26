@@ -1,20 +1,28 @@
 import * as React from 'react';
-import RcCheckbox from 'rc-checkbox';
+import RcCheckbox from '@/_rc/checkbox';
 import classNames from 'classnames';
-import { composeRef } from 'rc-util/lib/ref';
+// import { composeRef } from 'rc-util/lib/ref';
+import { composeRef } from '@/_rc/util/ref';
 import { RadioProps, RadioChangeEvent } from './interface';
 import { ConfigContext } from '../config-provider';
 import RadioGroupContext from './context';
 import devWarning from '../_util/devWarning';
 
-const InternalRadio: React.ForwardRefRenderFunction<HTMLElement, RadioProps> = (props, ref) => {
+const InternalRadio: React.ForwardRefRenderFunction<HTMLElement, RadioProps> = (
+  props,
+  ref,
+) => {
   const context = React.useContext(RadioGroupContext);
   const { getPrefixCls, direction } = React.useContext(ConfigContext);
   const innerRef = React.useRef<HTMLElement>();
   const mergedRef = composeRef(ref, innerRef);
 
   React.useEffect(() => {
-    devWarning(!('optionType' in props), 'Radio', '`optionType` is only support in Radio.Group.');
+    devWarning(
+      !('optionType' in props),
+      'Radio',
+      '`optionType` is only support in Radio.Group.',
+    );
   }, []);
 
   const onChange = (e: RadioChangeEvent) => {
@@ -22,7 +30,13 @@ const InternalRadio: React.ForwardRefRenderFunction<HTMLElement, RadioProps> = (
     context?.onChange?.(e);
   };
 
-  const { prefixCls: customizePrefixCls, className, children, style, ...restProps } = props;
+  const {
+    prefixCls: customizePrefixCls,
+    className,
+    children,
+    style,
+    ...restProps
+  } = props;
   const prefixCls = getPrefixCls('radio', customizePrefixCls);
   const radioProps: RadioProps = { ...restProps };
   if (context) {

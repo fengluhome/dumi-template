@@ -20,7 +20,9 @@ export interface Props {
   autoFocus?: boolean;
   value?: any;
 }
-declare const CheckBox: React.ForwardRefExoticComponent<
-  Props & React.RefAttributes<HTMLInputElement>
->;
+declare const CheckBox:
+  | React.ForwardRefExoticComponent<
+      Props & React.RefAttributes<HTMLInputElement>
+    >
+  | any;
 export default CheckBox;
