@@ -7,7 +7,7 @@
       "antd": ["src/index.ts"]
     },
     "target": "esnext",
-    "lib": ["dom", "es2017"],
+    "lib": ["dom", "dom.iterable", "es2017"],
     "moduleResolution": "node",
     "importHelpers": true,
     "jsx": "preserve",
