@@ -35,7 +35,7 @@ export interface StepsProps {
   status?: string;
   size?: 'default' | 'small';
   current: number;
-  progressDot?: ProgressDotRender | boolean;
+  progressDot?: ProgressDotRender | boolean | Function;
   stepIcon?: StepIconRender;
   initial: number;
   icons?: Icons;

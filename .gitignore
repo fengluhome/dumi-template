@@ -14,7 +14,7 @@
 /es
 # misc
 .DS_Store
-
+.vscode/
 # umi
 .umi
 .umi-production
